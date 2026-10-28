@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>北九州 黃金賞楓之旅 🍁</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="北九州之旅">
+<meta name="theme-color" content="#FFFCF6">
+<script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{washi:'#FFFCF6',ink:'#3E3A39',coral:'#F2A497','coral-l':'#FBE8E4',yamabuki:'#F6D27A','yamabuki-l':'#FDF3DC',mizu:'#A8D3E6','mizu-l':'#E8F3FA',wakatake:'#B9DAA5','wakatake-l':'#EAF5E3'},fontFamily:{h:['"Huninn"','"Noto Sans TC"','system-ui','sans-serif']}}}}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Huninn&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Huninn','Noto Sans TC',system-ui,sans-serif;background:#FFFCF6;color:#3E3A39;-webkit-tap-highlight-color:transparent}
+
+/* ── animations ── */
+@media(prefers-reduced-motion:no-preference){
+  .anim-float{animation:fl 3s ease-in-out infinite}
+  .anim-float-d{animation:fl 3s ease-in-out .6s infinite}
+  .anim-float-s{animation:fl 4.5s ease-in-out infinite}
+  .anim-sway{animation:sw 5s ease-in-out infinite}
+  .anim-puff{animation:pf 3.5s ease-in-out infinite}
+  .anim-fall{animation:fa 7s linear infinite}
+  .anim-fall-2{animation:fa 7s linear 2.3s infinite}
+  .anim-fall-3{animation:fa 7s linear 4.6s infinite}
+  .anim-bounce{animation:bi .4s cubic-bezier(.34,1.56,.64,1)}
+}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes sw{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+@keyframes pf{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.12);opacity:1}}
+@keyframes fa{0%{transform:translateY(-30px) rotate(0);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateY(160px) rotate(340deg);opacity:0}}
+@keyframes bi{0%{opacity:0;transform:scale(.94) translateY(8px)}60%{transform:scale(1.02) translateY(-2px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+
+/* ── card ── */
+.card{background:#FFFCF6;border:3px solid #3E3A39;border-radius:20px;padding:16px}
+
+/* ── day tabs ── */
+.dtab{
+  border:3px solid #3E3A39;
+  border-radius:14px;
+  padding:6px 14px;
+  font-size:.82rem;
+  font-weight:700;
+  background:#FFFCF6;
+  cursor:pointer;
+  white-space:nowrap;
+  user-select:none;
+  -webkit-user-select:none;
+  touch-action:manipulation;
+  transition:background .15s,color .15s,transform .15s;
+}
+.dtab:active{transform:scale(.95)}
+.dtab.on{background:#F2A497;color:#fff}
+@media(prefers-reduced-motion:no-preference){.dtab.on{transform:scale(1.06)}}
+.dpane{display:none !important}
+.dpane.on{display:block !important}
+@media(prefers-reduced-motion:no-preference){.dpane.on{animation:bi .35s ease-out}}
+
+/* ── timeline ── */
+.tl{position:relative;padding-left:30px}
+.tl::before{content:'';position:absolute;left:9px;top:22px;bottom:12px;width:2.5px;background:#e8e4df;border-radius:2px}
+.tl-i{position:relative;padding-bottom:18px}
+.tl-i:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-30px;top:4px;width:20px;height:20px;border-radius:50%;border:3px solid #3E3A39;background:#FFFCF6;z-index:1}
+
+/* ── transport tags ── */
+.tag{display:inline-flex;align-items:center;gap:3px;font-size:.68rem;padding:2px 8px;border-radius:20px;border:2px solid #3E3A39;font-weight:700;white-space:nowrap;text-decoration:none;color:inherit}
+.tag-f{background:#FBE8E4}.tag-b{background:#FDF3DC}.tag-j{background:#E8F3FA}.tag-w{background:#EAF5E3}.tag-s{background:#E8F3FA}.tag-n{background:#FBE8E4}.tag-bt{background:#E8F3FA}
+.must{display:inline-block;background:#F2A497;color:#fff;font-size:.65rem;padding:1px 8px;border-radius:20px;border:2px solid #3E3A39;font-weight:700;margin-left:4px;vertical-align:middle}
+
+/* ── checklist ── */
+.ck input[type=checkbox]{appearance:none;-webkit-appearance:none;width:24px;height:24px;border:3px solid #3E3A39;border-radius:7px;cursor:pointer;flex-shrink:0;position:relative;background:#FFFCF6}
+.ck input:checked{background:#B9DAA5}
+.ck input:checked::after{content:'✓';position:absolute;top:-3px;left:4px;font-size:16px;font-weight:700;color:#3E3A39}
+.ck input:checked~span{text-decoration:line-through;opacity:.45}
+
+/* ── countdown ── */
+.cd{background:#FFFCF6;border:3px solid #3E3A39;border-radius:14px;min-width:56px;padding:8px 4px;text-align:center}
+
+/* ── section heading ── */
+.sh{font-size:1.15rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.sh::after{content:'';flex:1;height:3px;background:#e8e4df;border-radius:2px}
+
+/* ── nav buttons ── */
+.nav-item{
+  font-family:inherit;
+  border:none;
+  background:transparent;
+  color:#3E3A39;
+  font-size:.78rem;
+  font-weight:700;
+  padding:6px 8px;
+  border-radius:12px;
+  white-space:nowrap;
+  cursor:pointer;
+  touch-action:manipulation;
+  user-select:none;
+  -webkit-user-select:none;
+  transition:background .15s,transform .1s;
+}
+.nav-item:active{background:#FBE8E4;transform:scale(.93)}
+</style>
+</head>
+
+<body class="font-h pb-16">
+
+<!-- ═══════════ FIXED NAV ═══════════ -->
+<nav class="fixed top-0 inset-x-0 z-50 bg-[#FFFCF6]/95 backdrop-blur border-b-[3px] border-[#3E3A39]">
+  <div class="max-w-lg mx-auto flex items-center justify-around py-2 px-1">
+    <button type="button" onclick="goToSection('hero')" class="nav-item">🏠 首頁</button>
+    <button type="button" onclick="goToSection('flights')" class="nav-item">✈️ 航班</button>
+    <button type="button" onclick="goToSection('itinerary')" class="nav-item">📋 行程</button>
+    <button type="button" onclick="goToSection('food')" class="nav-item">🍜 美食</button>
+    <button type="button" onclick="goToSection('hotels')" class="nav-item">🏨 住宿</button>
+    <button type="button" onclick="goToSection('checklist')" class="nav-item">✅ 清單</button>
+  </div>
+</nav>
+
+<main class="max-w-lg mx-auto px-4 pt-16">
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero" class="pt-4 pb-4 text-center">
+
+<!-- ─── SVG 主視覺插圖 ─── -->
+<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-md mx-auto" role="img" aria-label="北九州秋季風景插圖">
+
+  <!-- clouds -->
+  <g class="anim-float-s">
+    <ellipse cx="70" cy="42" rx="30" ry="14" fill="#fff" stroke="#3E3A39" stroke-width="2.5"/>
+    <ellipse cx="55" cy="40" rx="18" ry="11" fill="#fff" stroke="#3E3A39" stroke-width="2.5"/>
+    <ellipse cx="85" cy="40" rx="16" ry="10" fill="#fff" stroke="#3E3A39" stroke-width="2.5"/>
+    <ellipse cx="70" cy="44" rx="26" ry="10" fill="#fff"/>
+  </g>
+  <g class="anim-float-d">
+    <ellipse cx="330" cy="52" rx="24" ry="11" fill="#fff" stroke="#3E3A39" stroke-width="2.5"/>
+    <ellipse cx="318" cy="50" rx="14" ry="9" fill="#fff" stroke="#3E3A39" stroke-width="2.5"/>
+    <ellipse cx="342" cy="50" rx="14" ry="9" fill="#fff" stroke="#3E3A39" stroke-width="2.5"/>
+    <ellipse cx="330" cy="54" rx="20" ry="8" fill="#fff"/>
+  </g>
+
+  <!-- airplane -->
+  <g class="anim-float" transform="translate(200,28)">
+    <ellipse cx="0" cy="0" rx="26" ry="7.5" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/>
+    <path d="M26,-1.5Q33,0 26,1.5" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/>
+    <path d="M-26,0L-33,-10L-20,-1" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M-4,7.5L8,18L16,18L4,7.5" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M-4,-7.5L8,-18L16,-18L4,-7.5" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="-10" cy="-.5" r="2.2" fill="#A8D3E6" stroke="#3E3A39" stroke-width="1.5"/>
+    <circle cx="-3" cy="-.5" r="2.2" fill="#A8D3E6" stroke="#3E3A39" stroke-width="1.5"/>
+    <circle cx="4" cy="-.5" r="2.2" fill="#A8D3E6" stroke="#3E3A39" stroke-width="1.5"/>
+    <circle cx="11" cy="-.5" r="2.2" fill="#A8D3E6" stroke="#3E3A39" stroke-width="1.5"/>
+  </g>
+
+  <!-- far hill -->
+  <ellipse cx="200" cy="210" rx="240" ry="80" fill="#d6e8cc"/>
+
+  <!-- Mt. Aso -->
+  <path d="M290,155 L315,98 L340,155Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M300,132 L315,98 L330,132" fill="#9cc89a" stroke="none"/>
+  <g class="anim-puff">
+    <circle cx="315" cy="86" r="5.5" fill="#eae7e2" stroke="#3E3A39" stroke-width="1.5"/>
+    <circle cx="310" cy="78" r="4.5" fill="#eae7e2" stroke="#3E3A39" stroke-width="1.5"/>
+    <circle cx="320" cy="76" r="3.5" fill="#eae7e2" stroke="#3E3A39" stroke-width="1.5"/>
+  </g>
+
+  <!-- Kumamoto Castle -->
+  <g class="anim-sway" style="transform-origin:160px 145px">
+    <rect x="132" y="137" width="56" height="28" rx="2" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
+    <rect x="140" y="117" width="40" height="22" rx="2" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
+    <rect x="148" y="100" width="24" height="19" rx="2" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
+    <path d="M127,139 Q160,129 193,139" fill="none" stroke="#3E3A39" stroke-width="2.8" stroke-linecap="round"/>
+    <path d="M136,119 Q160,109 184,119" fill="none" stroke="#3E3A39" stroke-width="2.8" stroke-linecap="round"/>
+    <path d="M144,102 Q160,92 176,102" fill="none" stroke="#3E3A39" stroke-width="2.8" stroke-linecap="round"/>
+    <rect x="152" y="143" width="7" height="9" rx="1" fill="#3E3A39"/>
+    <rect x="163" y="143" width="7" height="9" rx="1" fill="#3E3A39"/>
+  </g>
+
+  <!-- Torii -->
+  <g>
+    <rect x="62" y="138" width="4" height="28" rx="1" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/>
+    <rect x="84" y="138" width="4" height="28" rx="1" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/>
+    <rect x="57" y="136" width="36" height="5" rx="2" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/>
+    <rect x="60" y="145" width="30" height="3" rx="1" fill="#F2A497" stroke="#3E3A39" stroke-width="1.5"/>
+  </g>
+
+  <!-- Ginkgo tree -->
+  <rect x="370" y="132" width="4.5" height="32" rx="2" fill="#8B7355" stroke="#3E3A39" stroke-width="2"/>
+  <circle cx="372" cy="122" r="18" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
+  <circle cx="362" cy="128" r="12" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
+  <circle cx="382" cy="128" r="12" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
+  <circle cx="372" cy="126" r="14" fill="#F6D27A"/>
+
+  <!-- Maple tree -->
+  <rect x="20" y="136" width="4.5" height="28" rx="2" fill="#8B7355" stroke="#3E3A39" stroke-width="2"/>
+  <circle cx="22" cy="126" r="16" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/>
+  <circle cx="13" cy="131" r="10" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/>
+  <circle cx="31" cy="131" r="10" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/>
+  <circle cx="22" cy="129" r="12" fill="#F2A497"/>
+
+  <!-- Ground -->
+  <path d="M0,164 Q60,156 130,164 Q200,172 280,162 Q350,156 400,164 L400,210 L0,210Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/>
+
+  <!-- Falling leaves -->
+  <g class="anim-fall"><path d="M140,55 l4,6 l-2.5,-.5 l.8,5 l-2.3,-3 l-2.3,3 l.8,-5 l-2.5,.5z" fill="#F2A497" stroke="#3E3A39" stroke-width="1.2"/></g>
+  <g class="anim-fall-2"><path d="M260,35 l4,6 l-2.5,-.5 l.8,5 l-2.3,-3 l-2.3,3 l.8,-5 l-2.5,.5z" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.2"/></g>
+  <g class="anim-fall-3"><path d="M360,45 l4,6 l-2.5,-.5 l.8,5 l-2.3,-3 l-2.3,3 l.8,-5 l-2.5,.5z" fill="#F2A497" stroke="#3E3A39" stroke-width="1.2"/></g>
+</svg>
+
+<h1 class="text-2xl font-bold mt-3 tracking-wide">北九州 黃金賞楓之旅</h1>
+<p class="text-sm mt-1 opacity-70">熊本 → 福岡 ｜ 八天七夜</p>
+<p class="text-xs mt-1 opacity-50">📅 11/28 (六) ~ 12/05 (六)</p>
+
+<!-- countdown -->
+<div class="flex justify-center gap-2 mt-4">
+  <div class="cd"><div id="cd-d" class="text-xl font-bold text-coral">--</div><div class="text-xs opacity-60">天</div></div>
+  <div class="cd"><div id="cd-h" class="text-xl font-bold text-yamabuki">--</div><div class="text-xs opacity-60">時</div></div>
+  <div class="cd"><div id="cd-m" class="text-xl font-bold text-mizu">--</div><div class="text-xs opacity-60">分</div></div>
+  <div class="cd"><div id="cd-s" class="text-xl font-bold text-wakatake">--</div><div class="text-xs opacity-60">秒</div></div>
+</div>
+<p class="text-xs mt-2 opacity-40">距離出發倒數中 ✈️</p>
+</section>
+
+<!-- ═══════════ FLIGHTS ═══════════ -->
+<section id="flights" class="py-6">
+<h2 class="sh mb-4">✈️ 航班資訊</h2>
+<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+  <div class="card flex gap-3 items-center">
+    <svg viewBox="0 0 48 48" class="w-12 h-12 flex-shrink-0 anim-float"><rect width="48" height="48" rx="14" fill="#FBE8E4" stroke="#3E3A39" stroke-width="2.5"/><text x="24" y="30" text-anchor="middle" font-size="22">✈️</text></svg>
+    <div>
+      <p class="text-xs font-bold text-coral">去程 — 11/28 (六)</p>
+      <p class="text-base font-bold">TPE → KMJ</p>
+      <p class="text-xs opacity-60">05:50 起飛 → 08:50 抵達（熊本）</p>
+    </div>
+  </div>
+  <div class="card flex gap-3 items-center">
+    <svg viewBox="0 0 48 48" class="w-12 h-12 flex-shrink-0 anim-float-d"><rect width="48" height="48" rx="14" fill="#E8F3FA" stroke="#3E3A39" stroke-width="2.5"/><text x="24" y="30" text-anchor="middle" font-size="22">🛬</text></svg>
+    <div>
+      <p class="text-xs font-bold text-mizu">回程 — 12/05 (六)</p>
+      <p class="text-base font-bold">FUK → TPE</p>
+      <p class="text-xs opacity-60">11:00 起飛 → 12:35 抵達（台灣）</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════ ITINERARY ═══════════ -->
+<section id="itinerary" class="py-6">
+<h2 class="sh mb-4">📋 每日行程</h2>
+
+<!-- day tabs -->
+<div class="flex gap-2 overflow-x-auto pb-3 -mx-1 px-1 snap-x" id="tabs">
+  <button type="button" onclick="selectDay('1')" class="dtab on snap-start" id="tab-btn-1">Day 1<br><span class="text-[.65rem] font-normal opacity-70 pointer-events-none">11/28 六</span></button>
+  <button type="button" onclick="selectDay('2')" class="dtab snap-start" id="tab-btn-2">Day 2<br><span class="text-[.65rem] font-normal opacity-70 pointer-events-none">11/29 日</span></button>
+  <button type="button" onclick="selectDay('3')" class="dtab snap-start" id="tab-btn-3">Day 3<br><span class="text-[.65rem] font-normal opacity-70 pointer-events-none">11/30 一</span></button>
+  <button type="button" onclick="selectDay('4')" class="dtab snap-start" id="tab-btn-4">Day 4<br><span class="text-[.65rem] font-normal opacity-70 pointer-events-none">12/01 二</span></button>
+  <button type="button" onclick="selectDay('5')" class="dtab snap-start" id="tab-btn-5">Day 5<br><span class="text-[.65rem] font-normal opacity-70 pointer-events-none">12/02 三</span></button>
+  <button type="button" onclick="selectDay('6')" class="dtab snap-start" id="tab-btn-6">Day 6<br><span class="text-[.65rem] font-normal opacity-70 pointer-events-none">12/03 四</span></button>
+  <button type="button" onclick="selectDay('7')" class="dtab snap-start" id="tab-btn-7">Day 7<br><span class="text-[.65rem] font-normal opacity-70 pointer-events-none">12/04 五</span></button>
+  <button type="button" onclick="selectDay('8')" class="dtab snap-start" id="tab-btn-8">Day 8<br><span class="text-[.65rem] font-normal opacity-70 pointer-events-none">12/05 六</span></button>
+</div>
+
+<!-- ─── Day 1 ─── -->
+<div class="dpane on" id="d1">
+<div class="card mt-3">
+  <div class="flex items-center gap-2 mb-3">
+    <svg viewBox="0 0 36 36" class="w-9 h-9 anim-sway" style="transform-origin:center"><rect width="36" height="36" rx="10" fill="#FDF3DC" stroke="#3E3A39" stroke-width="2.5"/><rect x="14" y="10" width="8" height="6" rx="1" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5"/><rect x="11" y="15" width="14" height="8" rx="1" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5"/><path d="M9,16 Q18,12 27,16" stroke="#3E3A39" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+    <div><p class="font-bold text-sm">Day 1 (11/28 六)：清晨啟航・銀杏城朝聖</p><p class="text-xs opacity-50">📍 熊本 ｜ 🏨 宿三井花園酒店</p></div>
+  </div>
+  <div class="tl">
+    <div class="tl-i"><div class="tl-dot" style="background:#FBE8E4"></div><p class="text-xs font-bold text-coral">05:50 – 08:50</p><p class="text-sm mt-0.5"><span class="tag tag-f">✈️ 班機</span> 台北搭機飛往熊本 (KMJ)</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#FDF3DC"></div><p class="text-xs font-bold text-yamabuki">約 10:00</p><p class="text-sm mt-0.5"><span class="tag tag-b">🚌 機場巴士</span> 抵達熊本，4號月台搭乘直達辛島町／櫻町總站（約 40-50 分）</p><p class="text-xs opacity-60 mt-1 pl-1">💡 機台先買票 ➔ 步行至三井花園酒店 Check-in 寄放行李</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#F2A497"></div><p class="text-xs font-bold text-coral">下午</p><p class="text-sm mt-0.5"><span class="tag tag-w">🚶 漫步</span> <strong>熊本城</strong><span class="must">必去</span></p><p class="text-xs opacity-60 mt-1 pl-1">🍂 日本三大名城！秋之大銀杏滿開轉黃，整座城化為金色超壯觀！</p><p class="text-sm mt-1.5"><span class="tag tag-w">🚶 漫步</span> <strong>櫻之馬場城彩苑</strong>（伴手禮＋熊本小吃街）</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#FDF3DC"></div><p class="text-xs font-bold text-yamabuki">晚上</p><p class="text-sm mt-0.5"><span class="tag tag-w">🚶 散策</span> 下通商店街・新市街商圈</p><p class="text-xs opacity-60 mt-1 pl-1">🍜 晚餐推薦：黑亭拉麵 ／ 菅乃屋馬肉料理 ／ 勝烈亭炸豬排</p></div>
+  </div>
+</div>
+</div>
+
+<!-- ─── Day 2 ─── -->
+<div class="dpane" id="d2">
+<div class="card mt-3">
+  <div class="flex items-center gap-2 mb-3">
+    <svg viewBox="0 0 36 36" class="w-9 h-9 anim-float"><rect width="36" height="36" rx="10" fill="#EAF5E3" stroke="#3E3A39" stroke-width="2.5"/><path d="M10,26 L18,10 L26,26Z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2" stroke-linejoin="round"/><circle cx="18" cy="8" r="2.5" fill="#eae7e2" stroke="#3E3A39" stroke-width="1.2"/><circle cx="21" cy="6.5" r="2" fill="#eae7e2" stroke="#3E3A39" stroke-width="1.2"/></svg>
+    <div><p class="font-bold text-sm">Day 2 (11/29 日)：秋季限定阿蘇火山與高千穗峽</p><p class="text-xs opacity-50">📍 阿蘇＋宮崎 ｜ 🎫 Klook 一日遊巴士團</p></div>
+  </div>
+  <div class="tl">
+    <div class="tl-i"><div class="tl-dot" style="background:#EAF5E3"></div><p class="text-xs font-bold text-wakatake">上午</p><p class="text-sm mt-0.5"><span class="tag tag-b">🚌 巴士</span> <strong>阿蘇山中岳火口・草千里濱</strong><span class="must">必去</span></p><p class="text-xs opacity-60 mt-1 pl-1">🌾 11 月底草千里金黃芒草季，壯觀火山景觀</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#FBE8E4"></div><p class="text-xs font-bold text-coral">下午</p><p class="text-sm mt-0.5"><span class="tag tag-b">🚌 巴士</span> <strong>高千穗峽</strong><span class="must">必去</span></p><p class="text-xs opacity-60 mt-1 pl-1">⛩️ 真名井瀑布、峭壁楓紅、划船漫遊神話峽谷</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#FDF3DC"></div><p class="text-xs font-bold text-yamabuki">晚上</p><p class="text-sm mt-0.5"><span class="tag tag-b">🚌 巴士</span> 返回熊本市區 ➔ 櫻町熊本購物中心晚餐</p></div>
+  </div>
+</div>
+</div>
+
+<!-- ─── Day 3 ─── -->
+<div class="dpane" id="d3">
+<div class="card mt-3">
+  <div class="flex items-center gap-2 mb-3">
+    <svg viewBox="0 0 36 36" class="w-9 h-9 anim-float-d"><rect width="36" height="36" rx="10" fill="#E8F3FA" stroke="#3E3A39" stroke-width="2.5"/><rect x="6" y="16" width="24" height="10" rx="4" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2"/><rect x="8" y="18" width="5" height="5" rx="1" fill="#fff" stroke="#3E3A39" stroke-width="1.2"/><rect x="15" y="18" width="5" height="5" rx="1" fill="#fff" stroke="#3E3A39" stroke-width="1.2"/><circle cx="12" cy="28" r="2.5" fill="#eee" stroke="#3E3A39" stroke-width="1.5"/><circle cx="24" cy="28" r="2.5" fill="#eee" stroke="#3E3A39" stroke-width="1.5"/></svg>
+    <div><p class="font-bold text-sm">Day 3 (11/30 一)：熊本到福岡・庭園楓紅</p><p class="text-xs opacity-50">📍 熊本 → 福岡 ｜ 🏨 宿東方天神</p></div>
+  </div>
+  <div class="tl">
+    <div class="tl-i"><div class="tl-dot" style="background:#EAF5E3"></div><p class="text-xs font-bold text-wakatake">上午</p><p class="text-sm mt-0.5"><span class="tag tag-w">🚶 漫步</span> <strong>水前寺成趣園</strong><span class="must">必去</span></p><p class="text-xs opacity-60 mt-1 pl-1">🍁 400年桃山式日式庭園，楓紅倒映池水絕美</p><p class="text-sm mt-1.5"><span class="tag tag-w">🚶 漫步</span> <strong>熊本熊廣場</strong>（朝聖部長辦公室）</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#E8F3FA"></div><p class="text-xs font-bold text-mizu">中午</p><p class="text-sm mt-0.5"><span class="tag tag-j">🚄 JR新幹線</span> 搭車前往博多 ➔ 東方天神飯店 Check-in</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#FDF3DC"></div><p class="text-xs font-bold text-yamabuki">下午</p><p class="text-sm mt-0.5"><span class="tag tag-w">🚶 散策</span> 櫛田神社 ➔ ☕ FUK COFFEE</p><p class="text-sm mt-1"><span class="tag tag-w">🚶 散策</span> 川端通商店街</p><p class="text-sm mt-1"><span class="tag tag-w">🚶 散策</span> 麵包超人博物館（10:00 開館）</p><p class="text-sm mt-1"><span class="tag tag-w">🚶 散策</span> <strong>大濠公園</strong>（日本庭園賞楓散步）</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#FBE8E4"></div><p class="text-xs font-bold text-coral">晚上</p><p class="text-sm mt-0.5"><span class="tag tag-w">🚶 購物</span> <strong>天神商圈</strong>大逛街＋博多水炊鍋或拉麵</p></div>
+  </div>
+</div>
+</div>
+
+<!-- ─── Day 4 ─── -->
+<div class="dpane" id="d4">
+<div class="card mt-3">
+  <div class="flex items-center gap-2 mb-3">
+    <svg viewBox="0 0 36 36" class="w-9 h-9 anim-sway" style="transform-origin:center"><rect width="36" height="36" rx="10" fill="#FBE8E4" stroke="#3E3A39" stroke-width="2.5"/><rect x="10" y="12" width="16" height="14" rx="2" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/><rect x="14" y="8" width="8" height="6" rx="1" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5"/><rect x="13" y="16" width="4" height="4" rx="1" fill="#fff"/><rect x="19" y="16" width="4" height="4" rx="1" fill="#fff"/></svg>
+    <div><p class="font-bold text-sm">Day 4 (12/01 二)：門司港懷舊・小倉城・皿倉山夜景</p><p class="text-xs opacity-50">📍 北九州 ｜ 🎟️ 適用 JR Pass</p></div>
+  </div>
+  <div class="tl">
+    <div class="tl-i"><div class="tl-dot" style="background:#E8F3FA"></div><p class="text-xs font-bold text-mizu">上午</p><p class="text-sm mt-0.5"><span class="tag tag-j">🚄 特急Sonic</span> 小倉站 ➔ <strong>門司港懷舊街區</strong><span class="must">必去</span></p><p class="text-xs opacity-60 mt-1 pl-1">🏛️ 大正浪漫歐風建築群、舊門司三井俱樂部、香蕉人地標</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#FDF3DC"></div><p class="text-xs font-bold text-yamabuki">中午</p><p class="text-sm mt-0.5">🍛 <strong>門司港名物「燒咖哩」</strong>（推薦 BEAR FRUITS）</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#EAF5E3"></div><p class="text-xs font-bold text-wakatake">下午</p><p class="text-sm mt-0.5"><span class="tag tag-j">🚄 JR</span> 小倉城散策 ➔ 返回博多市區電器、藥妝大補貨</p><p class="text-xs opacity-60 mt-1 pl-1">🛒 Bic Camera 天神店 ／ 友都八喜博多店</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#FBE8E4"></div><p class="text-xs font-bold text-coral">傍晚～夜間</p><p class="text-sm mt-0.5"><span class="tag tag-j">🚄 JR＋纜車</span> <strong>皿倉山展望台</strong><span class="must">必去</span></p><p class="text-xs opacity-60 mt-1 pl-1">🌃 新日本三大夜景！搭登山纜車，夕陽至億萬夜景盡收眼底</p></div>
+  </div>
+</div>
+</div>
+
+<!-- ─── Day 5 ─── -->
+<div class="dpane" id="d5">
+<div class="card mt-3">
+  <div class="flex items-center gap-2 mb-3">
+    <svg viewBox="0 0 36 36" class="w-9 h-9 anim-float"><rect width="36" height="36" rx="10" fill="#FBE8E4" stroke="#3E3A39" stroke-width="2.5"/><rect x="14" y="10" width="3" height="16" rx="1" fill="#F2A497" stroke="#3E3A39" stroke-width="1.5"/><rect x="19" y="10" width="3" height="16" rx="1" fill="#F2A497" stroke="#3E3A39" stroke-width="1.5"/><rect x="11" y="8" width="14" height="4" rx="2" fill="#F2A497" stroke="#3E3A39" stroke-width="1.5"/><rect x="13" y="14" width="10" height="2" rx="1" fill="#F2A497" stroke="#3E3A39" stroke-width="1"/></svg>
+    <div><p class="font-bold text-sm">Day 5 (12/02 三)：秋末限定！太宰府楓葉與柳川遊船</p><p class="text-xs opacity-50">📍 太宰府＋柳川 ｜ 🚃 西鐵電車套票</p></div>
+  </div>
+  <div class="tl">
+    <div class="tl-i"><div class="tl-dot" style="background:#FBE8E4"></div><p class="text-xs font-bold text-coral">上午</p><p class="text-sm mt-0.5"><span class="tag tag-n">🚃 西鐵</span> <strong>太宰府天滿宮</strong><span class="must">必去</span></p><p class="text-xs opacity-60 mt-1 pl-1">🍁 11月底~12月初楓紅最末期，表參道星巴克拍照＋吃梅枝餅</p><p class="text-sm mt-1.5"><span class="tag tag-w">🚶 漫步</span> <strong>光明禪寺</strong>（枯山水苔寺楓紅）＋ <strong>竈門神社</strong>（鬼滅賞楓聖地）</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#E8F3FA"></div><p class="text-xs font-bold text-mizu">下午</p><p class="text-sm mt-0.5"><span class="tag tag-n">🚃 西鐵</span> <strong>柳川遊船體驗</strong><span class="must">必去</span></p><p class="text-xs opacity-60 mt-1 pl-1">🚣 護城河垂柳、古船伕搖櫓 ｜ 午餐必吃：元祖本吉屋蒸鰻魚飯</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#FDF3DC"></div><p class="text-xs font-bold text-yamabuki">晚上</p><p class="text-sm mt-0.5"><span class="tag tag-n">🚃 西鐵</span> 回到天神，悠閒逛<strong>天神地下街</strong></p></div>
+  </div>
+</div>
+</div>
+
+<!-- ─── Day 6 ─── -->
+<div class="dpane" id="d6">
+<div class="card mt-3">
+  <div class="flex items-center gap-2 mb-3">
+    <svg viewBox="0 0 36 36" class="w-9 h-9 anim-sway" style="transform-origin:center"><rect width="36" height="36" rx="10" fill="#FDF3DC" stroke="#3E3A39" stroke-width="2.5"/><path d="M12,26 L12,14 Q12,10 16,10 L20,10 Q24,10 24,14 L24,26" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/><rect x="14" y="10" width="8" height="3" rx="1" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5"/><text x="18" y="22" text-anchor="middle" font-size="8" fill="#3E3A39">♥</text></svg>
+    <div><p class="font-bold text-sm">Day 6 (12/03 四)：福岡市區大血拼・天神一級戰區</p><p class="text-xs opacity-50">📍 福岡天神 ｜ 🛍️ 潮流・美妝・精品</p></div>
+  </div>
+  <div class="space-y-3 mt-2">
+    <div class="rounded-2xl border-3 border-ink p-3" style="background:#FDF3DC"><p class="font-bold text-sm mb-1">🏬 天神地下街 & 百貨群</p><p class="text-xs opacity-70">長達590公尺的歐風地下街，串連大丸百貨、PARCO、SOLARIA PLAZA、岩田屋，日系服飾美妝一次購足。</p></div>
+    <div class="rounded-2xl border-3 border-ink p-3" style="background:#EAF5E3"><p class="font-bold text-sm mb-1">💊 藥妝採買一級戰區</p><p class="text-xs opacity-70">天神警固神社周邊、大國藥妝、松本清、唐吉訶德（免稅滿5,000日圓記得出示護照）。</p></div>
+    <div class="rounded-2xl border-3 border-ink p-3" style="background:#FBE8E4"><p class="font-bold text-sm mb-1">🌙 晚餐與屋台體驗</p><p class="text-xs opacity-70">天神人氣屋台「小金ちゃん」吃炒拉麵，或是博多華味鳥水炊鍋暖胃。</p></div>
+  </div>
+</div>
+</div>
+
+<!-- ─── Day 7 ─── -->
+<div class="dpane" id="d7">
+<div class="card mt-3">
+  <div class="flex items-center gap-2 mb-3">
+    <svg viewBox="0 0 36 36" class="w-9 h-9 anim-float"><rect width="36" height="36" rx="10" fill="#E8F3FA" stroke="#3E3A39" stroke-width="2.5"/><circle cx="18" cy="18" r="10" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2"/><circle cx="18" cy="18" r="3" fill="#F2A497"/></svg>
+    <div><p class="font-bold text-sm">Day 7 (12/04 五)：博多運河城・Outlet・中洲夜遊</p><p class="text-xs opacity-50">📍 博多＋瑪麗諾亞城 ｜ 🛍️ 運河噴泉與夜景</p></div>
+  </div>
+  <div class="space-y-3 mt-2">
+    <div class="rounded-2xl border-3 border-ink p-3" style="background:#E8F3FA"><p class="font-bold text-sm mb-1">⛲ Canal City 博多運河城</p><p class="text-xs opacity-70">超大立體複合商場，看整點音樂水舞秀，5樓拉麵競技館集結日本各地拉麵。</p></div>
+    <div class="rounded-2xl border-3 border-ink p-3" style="background:#FDF3DC"><p class="font-bold text-sm mb-1">🎡 瑪麗諾亞城 Outlet（可選）</p><p class="text-xs opacity-70">九州最大海濱 Outlet，運動品牌、日系休閒服飾折扣超大，巴士30分鐘直達。</p></div>
+    <div class="rounded-2xl border-3 border-ink p-3" style="background:#FBE8E4"><p class="font-bold text-sm mb-1">🏮 中洲河畔屋台街</p><p class="text-xs opacity-70">沿著那珂川一字排開的熱鬧屋台，吹著河風品嚐烤串、關東煮、一口煎餃，享受福岡最道地的夜生活！</p></div>
+  </div>
+</div>
+</div>
+
+<!-- ─── Day 8 ─── -->
+<div class="dpane" id="d8">
+<div class="card mt-3">
+  <div class="flex items-center gap-2 mb-3">
+    <svg viewBox="0 0 36 36" class="w-9 h-9 anim-float"><rect width="36" height="36" rx="10" fill="#E8F3FA" stroke="#3E3A39" stroke-width="2.5"/><rect x="10" y="14" width="16" height="11" rx="3" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2"/><rect x="14" y="11" width="8" height="4" rx="2" fill="#A8D3E6" stroke="#3E3A39" stroke-width="1.5"/><circle cx="15" cy="20" r="1.5" fill="#fff"/><circle cx="21" cy="20" r="1.5" fill="#fff"/></svg>
+    <div><p class="font-bold text-sm">Day 8 (12/05 六)：博多伴手禮最後衝刺・平安返台</p><p class="text-xs opacity-50">📍 博多 → 福岡機場 (FUK)</p></div>
+  </div>
+  <div class="tl">
+    <div class="tl-i"><div class="tl-dot" style="background:#FDF3DC"></div><p class="text-xs font-bold text-yamabuki">08:30</p><p class="text-sm mt-0.5">🧳 退房 ➔ <strong>博多車站「Hakata 銘品藏」</strong>伴手禮大掃貨</p><p class="text-xs opacity-60 mt-1 pl-1">🎁 福太郎明太子、博多通饅頭、一蘭拉麵、小雞饅頭、甘王草莓甜點</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#E8F3FA"></div><p class="text-xs font-bold text-mizu">09:30</p><p class="text-sm mt-0.5"><span class="tag tag-s">🚇 福岡地鐵</span> 博多站直達福岡機場（僅需 5 分鐘！）</p></div>
+    <div class="tl-i"><div class="tl-dot" style="background:#FBE8E4"></div><p class="text-xs font-bold text-coral">11:00 – 12:35</p><p class="text-sm mt-0.5"><span class="tag tag-f">✈️ 班機</span> 福岡 (FUK) 國際航廈起飛 ➔ 返抵台灣 🇹🇼</p><p class="text-xs opacity-60 mt-1 pl-1">🎊 滿載戰利品與楓紅回憶，圓滿結束北九州 8 日遊！</p></div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- ═══════════ GOURMET & SOUVENIRS ═══════════ -->
+<section id="food" class="py-6">
+<h2 class="sh mb-4">🍜 必吃美食地圖</h2>
+<p class="text-xs opacity-60 mb-3 pl-1">點擊各店家「📍 地圖導航」直接在手機開啟 Google Maps！</p>
+
+<!-- 熊本美食 -->
+<div class="mb-5">
+  <div class="flex items-center gap-2 mb-2.5">
+    <span class="text-xs font-bold px-2.5 py-0.5 rounded-full border-2 border-ink" style="background:#FDF3DC">🏯 熊本篇</span>
+  </div>
+  <div class="space-y-2.5">
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🍜</span>
+            <span class="font-bold text-sm">黑亭拉麵（二本木本店）</span>
+            <span class="tag tag-b">熊本拉麵元祖</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">濃厚豚骨湯底＋自家製焦香黑蒜油，中粗直麵配厚切叉燒與生蛋黃，極度銷魂！</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥800-1,000</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=熊本+黒亭+拉麵" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🐴</span>
+            <span class="font-bold text-sm">菅乃屋（銀座通り店）</span>
+            <span class="tag tag-f">熊本 No.1 馬肉料理</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">頂級霜降馬刺身入口即化、櫻肉握壽司與石板燒。一生必嚐一次的熊本特色料理！</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥3,000-5,000</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=菅乃屋+熊本+馬肉" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🍖</span>
+            <span class="font-bold text-sm">勝烈亭（新市街本店）</span>
+            <span class="tag tag-b">米其林推薦炸豬排</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">外皮金黃酥脆無比、肉汁豐沛鮮甜。附磨臼現磨芝麻＋秘製醬汁，排隊超值。</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥1,200-1,800</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=勝烈亭+熊本+新市街" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🥟</span>
+            <span class="font-bold text-sm">紅蘭亭（下通本店）</span>
+            <span class="tag tag-w">熊本名物太平燕</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">清甜雞骨海鮮高湯，配粉絲、時蔬、虎皮炸蛋與鮮蝦，清爽暖胃的熊本靈魂美食。</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥900</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=紅蘭亭+熊本+太平燕" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🥩</span>
+            <span class="font-bold text-sm">いまきん食堂（阿蘇）</span>
+            <span class="tag tag-f">阿蘇赤牛丼神店</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">阿蘇在地特產「赤牛」，鋪滿粉嫩半熟牛肉片與溫泉蛋，拌入芥末醬油無敵美味！</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥1,500</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=いまきん食堂+阿蘇" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 福岡・北九州美食 -->
+<div class="mb-5">
+  <div class="flex items-center gap-2 mb-2.5">
+    <span class="text-xs font-bold px-2.5 py-0.5 rounded-full border-2 border-ink" style="background:#E8F3FA">🏙️ 福岡・北九州篇</span>
+  </div>
+  <div class="space-y-2.5">
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🍜</span>
+            <span class="font-bold text-sm">一蘭拉麵（本社總本店）</span>
+            <span class="tag tag-f">博多拉麵總殿堂</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">中洲川端整棟紅色燈籠超壯觀！獨門味集中座位、濃郁豚骨湯＋秘傳紅色辣醬。</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥980</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=一蘭+本社総本店+中洲" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🍜</span>
+            <span class="font-bold text-sm">博多拉麵 Shin Shin（天神本店）</span>
+            <span class="tag tag-w">在地人排隊最愛</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">湯底醇厚不油膩、極細麵滑順爽口，牆上滿滿藝人簽名盤！營業至深夜。</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥750</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=ShinShin拉麵+天神本店" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🐔</span>
+            <span class="font-bold text-sm">博多華味鳥（中洲本店）</span>
+            <span class="tag tag-b">博多必吃水炊鍋</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">福岡三大名鍋！自家培育雞肉熬出乳白鮮甜高湯，先喝純湯、再吃嫩雞，最後煮蛋花雜炊。</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥3,500-5,000</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=博多華味鳥+中洲本店" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🥩</span>
+            <span class="font-bold text-sm">やま中（博多站店／赤坂本店）</span>
+            <span class="tag tag-f">博多牛腸鍋王者</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">肥美鮮嫩牛小腸搭配滿滿甘甜高麗菜與韭菜，招牌味噌湯底濃郁甘醇，天冷吃超滿足。</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥1,800-2,500</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=博多+やま中+牛腸鍋" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🍢</span>
+            <span class="font-bold text-sm">小金ちゃん（天神屋台）</span>
+            <span class="tag tag-b">福岡屋台元祖炒拉麵</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">坐在路邊攤棚感受福岡人情味！招牌「燒拉麵」（炒拉麵）淋特調醬汁，配關東煮與啤酒。</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥1,000-2,000</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=小金ちゃん+天神+屋台" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🍛</span>
+            <span class="font-bold text-sm">BEAR FRUITS（門司港）</span>
+            <span class="tag tag-w">門司港名物燒咖哩</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">焗烤熱騰騰鐵鍋上桌！濃郁咖哩裹著半熟爆漿蛋與香濃起司，上戶彩也愛的排隊名店。</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥1,000-1,200</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=BEAR+FRUITS+門司港" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🐟</span>
+            <span class="font-bold text-sm">元祖本吉屋（柳川）</span>
+            <span class="tag tag-b">300年柳川蒸鰻魚飯</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">在木蒸籠裡炊透的蒲燒鰻魚飯！醬汁浸潤每粒米飯，鰻魚皮香肉滑，配錦絲蛋絲芳香滿溢。</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥3,000-4,500</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=元祖本吉屋+柳川" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-3.5">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-base">🥠</span>
+            <span class="font-bold text-sm">かさの家（太宰府表參道）</span>
+            <span class="tag tag-f">太宰府名物現烤梅枝餅</span>
+          </div>
+          <p class="text-xs opacity-60 mt-1">外層糯米薄皮烙至金黃微脆，咬開是熱騰騰細緻紅豆餡，邊走邊吃配抹茶無敵享受！</p>
+          <div class="flex items-center justify-between mt-2">
+            <span class="text-xs opacity-50">💴 約 ¥130/個</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=かさの家+太宰府" target="_blank" rel="noopener noreferrer" class="tag tag-s">📍 地圖導航 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 伴手禮速查 -->
+<div>
+  <div class="flex items-center gap-2 mb-2.5">
+    <span class="text-xs font-bold px-2.5 py-0.5 rounded-full border-2 border-ink" style="background:#FBE8E4">🎁 必買伴手禮清單</span>
+  </div>
+  <div class="grid grid-cols-2 gap-2 text-xs">
+    <div class="card p-2.5 flex items-center gap-2">
+      <span class="text-xl">🐟</span>
+      <div>
+        <p class="font-bold">福太郎 明太子仙貝</p>
+        <p class="opacity-50">博多車站必掃</p>
+      </div>
+    </div>
+    <div class="card p-2.5 flex items-center gap-2">
+      <span class="text-xl">🍘</span>
+      <div>
+        <p class="font-bold">明月堂 博多通饅頭</p>
+        <p class="opacity-50">奶香白豆沙金牌</p>
+      </div>
+    </div>
+    <div class="card p-2.5 flex items-center gap-2">
+      <span class="text-xl">🍜</span>
+      <div>
+        <p class="font-bold">一蘭特產拉麵禮盒</p>
+        <p class="opacity-50">福岡機場免稅店</p>
+      </div>
+    </div>
+    <div class="card p-2.5 flex items-center gap-2">
+      <span class="text-xl">🐥</span>
+      <div>
+        <p class="font-bold">ひよ子 小雞造型饅頭</p>
+        <p class="opacity-50">百年可愛名菓</p>
+      </div>
+    </div>
+    <div class="card p-2.5 flex items-center gap-2">
+      <span class="text-xl">🍓</span>
+      <div>
+        <p class="font-bold">甘王草莓夾心餅乾</p>
+        <p class="opacity-50">あまおう草莓限定</p>
+      </div>
+    </div>
+    <div class="card p-2.5 flex items-center gap-2">
+      <span class="text-xl">🐻</span>
+      <div>
+        <p class="font-bold">熊本熊部長周邊</p>
+        <p class="opacity-50">熊本熊廣場限定</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<!-- ═══════════ ACCOMMODATION ═══════════ -->
+<section id="hotels" class="py-6">
+<h2 class="sh mb-4">🏨 住宿資訊</h2>
+<div class="space-y-3">
+  <div class="card">
+    <div class="flex items-start gap-3">
+      <div class="w-10 h-10 rounded-xl border-3 border-ink flex items-center justify-center text-lg flex-shrink-0" style="background:#FDF3DC">🏯</div>
+      <div class="flex-1 min-w-0">
+        <p class="font-bold text-sm">三井花園酒店 熊本</p>
+        <p class="text-xs opacity-60 mt-0.5">📅 Day 1-2 ｜ 11/28-29 (二晚)</p>
+        <p class="text-xs opacity-60">📍 熊本辛島町（鄰近通町筋、櫻町總站）</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=三井花園飯店+熊本" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-bold px-3 py-1 rounded-full border-2 border-ink tag tag-s">📍 Google Maps 導航 →</a>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="flex items-start gap-3">
+      <div class="w-10 h-10 rounded-xl border-3 border-ink flex items-center justify-center text-lg flex-shrink-0" style="background:#E8F3FA">🏙️</div>
+      <div class="flex-1 min-w-0">
+        <p class="font-bold text-sm">東方天神飯店（Oriental Hotel Fukuoka Tenjin）</p>
+        <p class="text-xs opacity-60 mt-0.5">📅 Day 3-7 ｜ 11/30-12/04 (五晚)</p>
+        <p class="text-xs opacity-60">📍 福岡天神（福岡市核心商圈，地鐵直通）</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=東方飯店+福岡天神" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-bold px-3 py-1 rounded-full border-2 border-ink tag tag-s">📍 Google Maps 導航 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════ CHECKLIST ═══════════ -->
+<section id="checklist" class="py-6">
+<h2 class="sh mb-4">✅ 行前清單</h2>
+<div class="space-y-3">
+
+  <div class="card">
+    <p class="font-bold text-sm mb-3">📄 證件與票券</p>
+    <div class="space-y-2.5">
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="0" onchange="toggleCheck(0, this)"><span>護照（效期 6 個月以上）</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="1" onchange="toggleCheck(1, this)"><span>機票確認（去程 11/28、回程 12/05）</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="2" onchange="toggleCheck(2, this)"><span>飯店訂房憑證（三井花園 / 東方天神）</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="3" onchange="toggleCheck(3, this)"><span>Klook 阿蘇＋高千穗一日遊憑證</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="4" onchange="toggleCheck(4, this)"><span>JR 北九州 Pass 兌換券</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="5" onchange="toggleCheck(5, this)"><span>Visit Japan Web 入境預先登錄完成</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="6" onchange="toggleCheck(6, this)"><span>海外旅遊平安及不便險</span></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="font-bold text-sm mb-3">📱 電子與交通</p>
+    <div class="space-y-2.5">
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="10" onchange="toggleCheck(10, this)"><span>日本上網 eSIM 或 WiFi 機開通</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="11" onchange="toggleCheck(11, this)"><span>行動電源（確認帶上隨身行李）</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="12" onchange="toggleCheck(12, this)"><span>手機充電線與豆腐頭</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="13" onchange="toggleCheck(13, this)"><span>交通 IC 卡（Apple 錢包 Suica / ICOCA）</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="14" onchange="toggleCheck(14, this)"><span>Google Maps 熊本與福岡離線地圖下載</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="15" onchange="toggleCheck(15, this)"><span>日幣現鈔（建議備 5-8 萬日幣）</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="16" onchange="toggleCheck(16, this)"><span>海外高回饋信用卡（記得先開通海外刷卡）</span></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="font-bold text-sm mb-3">🧥 保暖穿著（氣溫約 5-15°C）</p>
+    <div class="space-y-2.5">
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="20" onchange="toggleCheck(20, this)"><span>防風保暖外套（阿蘇火山與皿倉山山上較冷）</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="21" onchange="toggleCheck(21, this)"><span>發熱衣／衛衣 3-4 件</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="22" onchange="toggleCheck(22, this)"><span>保暖圍巾、毛帽或手套</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="23" onchange="toggleCheck(23, this)"><span>舒適好走的球鞋（行程需走許多路）</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="24" onchange="toggleCheck(24, this)"><span>輕便折疊傘</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="25" onchange="toggleCheck(25, this)"><span>暖暖包數包備用</span></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="font-bold text-sm mb-3">🧳 隨身與其他物品</p>
+    <div class="space-y-2.5">
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="30" onchange="toggleCheck(30, this)"><span>個人常備藥（腸胃藥、感冒止痛、暈車藥）</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="31" onchange="toggleCheck(31, this)"><span>護唇膏、保濕乳液（日本冬季室內偏乾）</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="32" onchange="toggleCheck(32, this)"><span>折疊行李袋／壓縮袋（裝戰利品用）</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="33" onchange="toggleCheck(33, this)"><span>護照影本與重要聯絡電話存手機相簿</span></label>
+      <label class="ck flex items-center gap-2.5 text-sm cursor-pointer"><input type="checkbox" data-ck="34" onchange="toggleCheck(34, this)"><span>免稅門檻留意（單店滿 5,000 日圓退稅）</span></label>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- footer -->
+<footer class="text-center py-8 text-xs opacity-40">
+  <svg viewBox="0 0 60 20" class="w-16 mx-auto mb-2"><path d="M5,15 l5,-8 l-2,0 l1,-5 l-2,3 l-2,-3 l1,5 l-2,0z" fill="#F2A497" stroke="#3E3A39" stroke-width="1.2"/><path d="M25,15 l5,-8 l-2,0 l1,-5 l-2,3 l-2,-3 l1,5 l-2,0z" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.2"/><path d="M45,15 l5,-8 l-2,0 l1,-5 l-2,3 l-2,-3 l1,5 l-2,0z" fill="#B9DAA5" stroke="#3E3A39" stroke-width="1.2"/></svg>
+  北九州 黃金賞楓之旅 🍁 祝旅途愉快
+</footer>
+
+</main>
+
+<script>
+/* ── Navigation offset scroll ── */
+window.goToSection = function(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var navOffset = 64;
+  var elementPosition = el.getBoundingClientRect().top;
+  var offsetPosition = elementPosition + (window.pageYOffset || document.documentElement.scrollTop) - navOffset;
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: 'smooth'
+  });
+};
+
+/* ── Day tabs switching ── */
+window.selectDay = function(d) {
+  var tabs = document.querySelectorAll('.dtab');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove('on');
+  }
+  var activeBtn = document.getElementById('tab-btn-' + d);
+  if (activeBtn) {
+    activeBtn.classList.add('on');
+    try {
+      activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    } catch(e) {}
+  }
+  var panes = document.querySelectorAll('.dpane');
+  for (var j = 0; j < panes.length; j++) {
+    panes[j].classList.remove('on');
+  }
+  var activePane = document.getElementById('d' + d);
+  if (activePane) {
+    activePane.classList.add('on');
+  }
+};
+
+/* ── Countdown Timer ── */
+(function initCountdown(){
+  var depTime = new Date(2026, 10, 28, 5, 50, 0).getTime();
+  function updateTimer(){
+    var now = Date.now();
+    var diff = depTime - now;
+    if (diff <= 0) {
+      document.getElementById('cd-d').textContent = '🎉';
+      document.getElementById('cd-h').textContent = '出';
+      document.getElementById('cd-m').textContent = '發';
+      document.getElementById('cd-s').textContent = '！';
+      return;
+    }
+    var days = Math.floor(diff / 86400000);
+    var hours = Math.floor((diff % 86400000) / 3600000);
+    var mins = Math.floor((diff % 3600000) / 60000);
+    var secs = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-d').textContent = days;
+    document.getElementById('cd-h').textContent = hours;
+    document.getElementById('cd-m').textContent = mins;
+    document.getElementById('cd-s').textContent = String(secs).padStart(2, '0');
+  }
+  updateTimer();
+  setInterval(updateTimer, 1000);
+})();
+
+/* ── Checklist persistence ── */
+window.toggleCheck = function(idx, cb) {
+  try {
+    localStorage.setItem('kq-ck-' + idx, cb.checked ? '1' : '0');
+  } catch(e) {}
+};
+
+try {
+  var cbs = document.querySelectorAll('.ck input[type=checkbox]');
+  for (var i = 0; i < cbs.length; i++) {
+    var k = 'kq-ck-' + cbs[i].getAttribute('data-ck');
+    if (localStorage.getItem(k) === '1') {
+      cbs[i].checked = true;
+    }
+  }
+} catch(e) {}
+</script>
+</body>
+</html>
